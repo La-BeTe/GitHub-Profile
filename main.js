@@ -60,10 +60,11 @@ function fetchUserDetails(){
         method: "POST",
         body: JSON.stringify({query, variables: {}}),
         headers: {
-            "Authorization": "Bearer 5307b21501ca8c23c6fc34a7ab51d4c91f022c90",
+            "Authorization": `Bearer ${GITHUB_ACCESS_TOKEN}`,
             "Content-Type": "application/json"
         }
     };
+    let intro = document.querySelector("#intro");
     fetch(githubAPI, reqOptions)
     .then(res=> res.json())
     .then(res=>{
@@ -77,12 +78,21 @@ function fetchUserDetails(){
         for(let each in data){
             updateDOM(each, data[each])
         }
-        let intro = document.querySelector("#intro");
         intro.classList.add("disappear");
         setTimeout(function(){
             intro.style.display = "none";
         }, 1000);
-    }).catch(console.log);
+    }).catch(e=>{
+        let introP = intro.querySelector("p");
+        let introSvg = intro.querySelectorAll("svg");
+        if(e.message === "Failed to fetch"){
+            introP.innerText = "Failed to get user details, please check your internet connection and reload the page.";
+        }else{
+            introP.innerText = "An error occured, please reload page."
+        }
+        introSvg.forEach(svg=> svg.style.animation = "none");
+        console.log(e.message);
+    });
 }
 
 function updateDOM(className, value){
