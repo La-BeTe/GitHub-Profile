@@ -1,0 +1,31 @@
+{
+  "name": "github-profile",
+  "version": "1.0.0",
+  "description": "BuyCoins Coding Challenge",
+  "main": "index.html",
+  "scripts": {
+    "prefix-css": "postcss src/style.css -u autoprefixer -o src/prefixedStyle.css",
+    "minify-css": "cleancss src/prefixedStyle.css -o public/style.min.css",
+    "transpile-js": "babel src/main.js --out-file src/transpiledMain.js",
+    "minify-js": "uglifyjs src/transpiledMain.js -o public/main.min.js",
+    "build-css": "npm run prefix-css && npm run minify-css && rm src/prefixedStyle.css",
+    "build-js": "npm run transpile-js && npm run minify-js && rm src/transpiledMain.js",
+    "build": "npm run build-css && npm run build-js",
+    "deploy": "git add . && git commit && git push origin main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/La-BeTe/GitHub-Profile.git"
+  },
+  "author": "La-BeTe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/La-BeTe/GitHub-Profile/issues"
+  },
+  "homepage": "https://github.com/La-BeTe/GitHub-Profile#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "browserslist": "last 5 versions"
+}
