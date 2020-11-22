@@ -11,7 +11,7 @@
     "build-css": "npm run prefix-css && npm run minify-css && rm src/prefixedStyle.css",
     "build-js": "npm run transpile-js && npm run minify-js && rm src/transpiledMain.js",
     "build": "npm run build-css && npm run build-js",
-    "deploy": "git add . && git commit && git push origin main"
+    "deploy": "npm run build && git add . && git commit && git push origin main"
   },
   "repository": {
     "type": "git",

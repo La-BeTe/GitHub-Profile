@@ -16,7 +16,7 @@ function bindEventListeners(){
     });
     
     if(innerWidth < 768){
-        window.addEventListener("scroll", e=>{
+        window.addEventListener("scroll", ()=>{
             let nav = document.querySelector("nav");
             let navBottom = document.querySelector("main").getBoundingClientRect().top;
             if(navBottom < 0){
