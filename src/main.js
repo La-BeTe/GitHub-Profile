@@ -29,6 +29,19 @@ function bindEventListeners(){
 }
 
 function fetchUserDetails(){
+    let intro = document.querySelector("#intro");
+    let introP = intro.querySelector("p");
+    let introSvg = intro.querySelectorAll("svg");
+    let token;
+    try{
+        token = GITHUB_ACCESS_TOKEN;
+    }catch(e){
+        if(e.message === "GITHUB_ACCESS_TOKEN is not defined"){
+            introSvg.forEach(svg=> svg.style.animation = "none");
+            introP.innerText = "GitHub API Token is required to view the page";
+            return;
+        }
+    }
     let query = `{
         viewer {
           login
@@ -60,11 +73,10 @@ function fetchUserDetails(){
         method: "POST",
         body: JSON.stringify({query, variables: {}}),
         headers: {
-            "Authorization": `Bearer ${GITHUB_ACCESS_TOKEN}`,
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         }
     };
-    let intro = document.querySelector("#intro");
     fetch(githubAPI, reqOptions)
     .then(res=> res.json())
     .then(res=>{
@@ -77,15 +89,12 @@ function fetchUserDetails(){
             intro.style.display = "none";
         }, 1000);
     }).catch(e=>{
-        let introP = intro.querySelector("p");
-        let introSvg = intro.querySelectorAll("svg");
         if(e.message === "Failed to fetch"){
             introP.innerText = "Failed to get user details, please check your internet connection and reload the page.";
         }else{
-            introP.innerText = "An error occured, please reload page."
+            introP.innerText = "An error occured, please reload page.";
         }
         introSvg.forEach(svg=> svg.style.animation = "none");
-        console.log(e.message);
     });
 }
 

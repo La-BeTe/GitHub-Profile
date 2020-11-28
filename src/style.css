@@ -26,6 +26,8 @@ a{
     fill: black;
     text-align: center;
     transition: opacity 1s;
+    display: flex;
+    align-items: center;
 }
 #intro.disappear{
     opacity: 0;
@@ -43,7 +45,8 @@ a{
 #intro p{
     font-weight: bold;
     font-size: 20px;
-    width: 100vw;
+    width: 80vw;
+    margin: 0 auto;
 }
 #intro svg:nth-child(1){
     animation: slideUp1 2s infinite alternate-reverse;
@@ -715,6 +718,7 @@ footer > p{
 footer > a{
     color: var(--light-blue);
     cursor: pointer;
+    text-decoration: none;
 }
 footer > a:hover{
     text-decoration: underline;
